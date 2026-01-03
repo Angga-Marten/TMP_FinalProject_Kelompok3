@@ -4,6 +4,7 @@ import {
   findLeaderLineId,
   findLeaderWhatsapp
 } from "../models/leader.model.js";
+import { pool } from "../config/database.js";
 
 const allowedFileTypes = ["application/pdf", "image/jpeg", "image/jpg", "image/png"];
 
@@ -19,7 +20,6 @@ const isAtLeast17 = (birthDate) => {
 const registerLeader = async (req, res) => {
   try {
     const {
-      idGroup,
       fullName,
       email,
       whatsappNumber,
@@ -36,6 +36,13 @@ const registerLeader = async (req, res) => {
     const cv = cvFile?.[0];       
     const flazz = flazzFile?.[0]; 
     const idCard = idCardFile?.[0]; 
+
+    const [rows] = await pool.query(
+      "SELECT id_group FROM user_groups ORDER BY created_at DESC LIMIT 1"
+    );
+    if(!rows.length) return res.status(404).json({ message: "No group exists yet!!" });
+
+    const idGroup = rows[0].id_group;
     
     if(!idGroup || !fullName || !email || !whatsappNumber || !lineId || !birthPlace || !birthDate) {
       return res.status(400).json({ message: "All required fields must be filled!!" });
