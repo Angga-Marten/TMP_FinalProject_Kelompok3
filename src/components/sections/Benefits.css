@@ -1,0 +1,219 @@
+/* Benefit.css - Styles khusus untuk komponen Benefits */
+
+#benefits {
+  padding: 100px 0;
+  position: relative;
+}
+
+/* Container untuk section benefits */
+.benefits {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 30px;
+}
+
+/* Benefit card dengan efek glass */
+.benefit-card.glass {
+  padding: 40px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow);
+  border-radius: 20px;
+  transition: all 0.3s;
+}
+
+/* Efek hover pada benefit card */
+.benefit-card.glass:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Icon benefit */
+.benefit-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(108, 99, 255, 0.1);
+  color: var(--primary);
+  font-size: 2rem;
+  margin-bottom: 25px;
+  border: 1px solid rgba(108, 99, 255, 0.2);
+  transition: all 0.3s;
+}
+
+/* Efek hover pada icon */
+.benefit-card.glass:hover .benefit-icon {
+  background: var(--primary);
+  color: white;
+  transform: scale(1.1);
+}
+
+/* Judul benefit card */
+.benefit-card h3 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 800;
+  font-size: 1.6rem;
+  margin-bottom: 15px;
+  color: var(--text);
+}
+
+/* Deskripsi benefit card */
+.benefit-card p {
+  color: var(--text-light);
+  line-height: 1.8;
+  font-family: "Inter", sans-serif;
+}
+
+/* Section title styling (jika section-title juga digunakan di Benefits) */
+.section-title {
+  text-align: center;
+  margin-bottom: 70px;
+  position: relative;
+}
+
+.section-title h2 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 800;
+  font-size: 2.8rem;
+  display: inline-block;
+  position: relative;
+  margin-bottom: 20px;
+  color: var(--text);
+}
+
+.section-title h2::after {
+  content: "";
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: var(--gradient-1);
+  border-radius: 2px;
+}
+
+.section-title p {
+  color: var(--text-light);
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto;
+  font-family: "Inter", sans-serif;
+}
+
+/* Container untuk konsistensi */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Responsive styles */
+@media (max-width: 1100px) {
+  .benefits {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+  }
+
+  .section-title h2 {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 992px) {
+  #benefits {
+    padding: 80px 0;
+  }
+
+  .benefits {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+  }
+
+  .benefit-card.glass {
+    padding: 30px 25px;
+  }
+
+  .benefit-icon {
+    width: 70px;
+    height: 70px;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+
+  .benefit-card h3 {
+    font-size: 1.4rem;
+  }
+
+  .section-title h2 {
+    font-size: 2.2rem;
+  }
+
+  .section-title p {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .benefits {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+    margin: 0 auto;
+    gap: 20px;
+  }
+
+  .benefit-card.glass {
+    padding: 35px 30px;
+  }
+
+  .section-title h2 {
+    font-size: 2rem;
+  }
+
+  .section-title p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  #benefits {
+    padding: 60px 0;
+  }
+
+  .benefit-card.glass {
+    padding: 30px 20px;
+  }
+
+  .benefit-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+
+  .benefit-card h3 {
+    font-size: 1.3rem;
+  }
+
+  .benefit-card p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .section-title h2 {
+    font-size: 1.8rem;
+  }
+
+  .section-title p {
+    font-size: 0.9rem;
+  }
+}

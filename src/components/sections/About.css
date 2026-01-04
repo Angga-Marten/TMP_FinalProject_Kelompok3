@@ -1,0 +1,208 @@
+/* About.css - Styles khusus untuk komponen About */
+
+#about {
+  padding: 100px 0;
+  position: relative;
+}
+
+/* Container untuk section about */
+.about-content {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 50px;
+}
+
+/* Teks about dengan efek glass */
+.about-text.glass {
+  flex: 1;
+  min-width: 300px;
+  padding: 40px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow);
+  border-radius: 20px;
+}
+
+/* Judul about */
+.about-text h3 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 800;
+  font-size: 2.2rem;
+  margin-bottom: 25px;
+  color: var(--text);
+}
+
+/* Paragraf about */
+.about-text p {
+  margin-bottom: 20px;
+  color: var(--text-light);
+  line-height: 1.8;
+  font-family: "Inter", sans-serif;
+}
+
+/* Tombol guidebook */
+.guidebook-btn {
+  display: inline-flex;
+  align-items: center;
+  background: var(--gradient-1);
+  color: white;
+  padding: 16px 35px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s;
+  margin-top: 20px;
+  box-shadow: 0 5px 15px rgba(108, 99, 255, 0.2);
+  font-family: "Inter", sans-serif;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.guidebook-btn i {
+  margin-right: 10px;
+}
+
+.guidebook-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(108, 99, 255, 0.3);
+}
+
+/* Stats section */
+.about-stats {
+  flex: 1;
+  min-width: 300px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+}
+
+/* Stat box dengan efek glass */
+.stat-box.glass {
+  padding: 30px 20px;
+  text-align: center;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow);
+  border-radius: 20px;
+}
+
+/* Angka statistik */
+.stat-box h3 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 900;
+  font-size: 3rem;
+  color: var(--primary);
+  margin-bottom: 5px;
+}
+
+/* Deskripsi statistik */
+.stat-box p {
+  color: var(--text-light);
+  font-size: 1.1rem;
+  font-family: "Inter", sans-serif;
+}
+
+/* Section title styling (jika section-title juga digunakan di About) */
+.section-title {
+  text-align: center;
+  margin-bottom: 70px;
+  position: relative;
+}
+
+.section-title h2 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 800;
+  font-size: 2.8rem;
+  display: inline-block;
+  position: relative;
+  margin-bottom: 20px;
+  color: var(--text);
+}
+
+.section-title h2::after {
+  content: "";
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: var(--gradient-1);
+  border-radius: 2px;
+}
+
+.section-title p {
+  color: var(--text-light);
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto;
+  font-family: "Inter", sans-serif;
+}
+
+/* Container untuk konsistensi */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Responsive styles */
+@media (max-width: 992px) {
+  .about-content {
+    flex-direction: column;
+  }
+
+  .about-text.glass,
+  .about-stats {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  #about {
+    padding: 80px 0;
+  }
+
+  .about-text h3 {
+    font-size: 1.8rem;
+  }
+
+  .stat-box h3 {
+    font-size: 2.5rem;
+  }
+
+  .section-title h2 {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .about-stats {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .about-text.glass {
+    padding: 30px 20px;
+  }
+
+  .guidebook-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .section-title h2 {
+    font-size: 1.8rem;
+  }
+
+  .section-title p {
+    font-size: 1rem;
+  }
+}
