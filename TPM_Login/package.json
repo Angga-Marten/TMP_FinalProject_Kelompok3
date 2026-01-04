@@ -1,0 +1,24 @@
+{
+    "name": "tpm_be_finalproject_3",
+    "version": "1.0.0",
+    "description": "",
+    "main": "Login_logout/index.js",
+    "type": "module",
+    "scripts": {
+        "dev": "nodemon Login_logout/index.js",
+        "start": "node Login_logout/index.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "bcrypt": "^6.0.0",
+        "dotenv": "^17.2.3",
+        "express": "^5.2.1",
+        "jsonwebtoken": "^9.0.2",
+        "mysql2": "^3.16.0"
+    },
+    "devDependencies": {
+        "nodemon": "^3.1.11"
+    }
+}
