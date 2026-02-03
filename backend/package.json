@@ -1,0 +1,20 @@
+{
+  "name": "hackathon-backend",
+  "version": "1.0.0",
+  "description": "Unified backend for Hackathon TPM project",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "create-admin": "node create_admin.js"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.0.2",
+    "mysql2": "^3.16.0"
+  }
+}

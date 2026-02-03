@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Uploads
+uploads/
+**/uploads/
+
+# Build output
+dist/
+build/
+
+# Logs
+npm-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+TPM_BE_FinalProject_3/
+TPM_Login/
