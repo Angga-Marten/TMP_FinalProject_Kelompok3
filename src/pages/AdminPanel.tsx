@@ -131,14 +131,6 @@ function AdminPanel() {
                                     <div className="stat-number" id="nonBinusianTeams">0</div>
                                     <div className="stat-label">Non-Binusian Teams</div>
                                 </div>
-
-                                <div className="stat-card">
-                                    <div className="stat-icon">
-                                        <i className="fas fa-user-friends"></i>
-                                    </div>
-                                    <div className="stat-number" id="totalParticipants">0</div>
-                                    <div className="stat-label">Total Participants</div>
-                                </div>
                             </div>
 
                             <div className="controls-section">
@@ -170,7 +162,6 @@ function AdminPanel() {
                                     <thead>
                                         <tr>
                                             <th>Team Name</th>
-                                            <th className="team-size-cell">Team Size</th>
                                             <th>Participant Type</th>
                                             <th className="team-date-cell">Registration Date</th>
                                             <th className="actions-cell">Actions</th>
@@ -257,5 +248,6 @@ function AdminPanel() {
         </div>
     )
 }
+
 
 export default AdminPanel
