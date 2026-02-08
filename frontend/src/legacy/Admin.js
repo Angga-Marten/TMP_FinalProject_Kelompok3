@@ -1,4 +1,7 @@
-const API_BASE = typeof window !== "undefined" && window.API_BASE ? window.API_BASE : "http://localhost:8000";
+const API_BASE =
+  typeof window !== "undefined" && window.API_BASE
+    ? window.API_BASE
+    : "http://localhost:8000";
 
 let teamsData = [];
 
@@ -20,34 +23,36 @@ function initAdminPanel() {
     document.getElementById("loginPage").style.display = "flex";
   }
 
-  document.getElementById("loginForm").addEventListener("submit", async function (e) {
-    e.preventDefault();
-    const group = document.getElementById("adminGroup").value.trim();
-    const password = document.getElementById("adminPassword").value;
+  document
+    .getElementById("loginForm")
+    .addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const group = document.getElementById("adminGroup").value.trim();
+      const password = document.getElementById("adminPassword").value;
 
-    try {
-      const res = await fetch(`${API_BASE}/api/auth/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ groupName: group, password }),
-      });
-      const data = await res.json().catch(() => ({}));
+      try {
+        const res = await fetch(`${API_BASE}/api/auth/login`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ groupName: group, password }),
+        });
+        const data = await res.json().catch(() => ({}));
 
-      if (res.ok && data.token && data.role === "admin") {
-        localStorage.setItem("hackathonToken", data.token);
-        localStorage.setItem("hackathonRole", "admin");
-        showToast("Login successful!", "success");
-        setTimeout(() => {
-          showAdminDashboard();
-          loadTeamsData();
-        }, 500);
-      } else {
-        showToast(data.message || "Invalid credentials.", "error");
+        if (res.ok && data.token && data.role === "admin") {
+          localStorage.setItem("hackathonToken", data.token);
+          localStorage.setItem("hackathonRole", "admin");
+          showToast("Login successful!", "success");
+          setTimeout(() => {
+            showAdminDashboard();
+            loadTeamsData();
+          }, 500);
+        } else {
+          showToast(data.message || "Invalid credentials.", "error");
+        }
+      } catch (err) {
+        showToast("Network error. Please try again.", "error");
       }
-    } catch (err) {
-      showToast("Network error. Please try again.", "error");
-    }
-  });
+    });
 
   document.getElementById("logoutBtn").addEventListener("click", function (e) {
     e.preventDefault();
@@ -55,10 +60,9 @@ function initAdminPanel() {
     localStorage.removeItem("hackathonRole");
     showToast("Logged out successfully.", "success");
     setTimeout(() => {
-      document.getElementById("adminDashboard").style.display = "none";
-      document.getElementById("loginPage").style.display = "flex";
-      document.getElementById("loginForm").reset();
-    }, 500);
+      localStorage.clear();
+      window.location.href = "/"; // redirect ke landing page
+    }, 1500);
   });
 
   document.getElementById("searchInput").addEventListener("input", function () {
@@ -71,13 +75,27 @@ function initAdminPanel() {
     filterTeams();
   });
 
-  document.getElementById("closeViewModal").addEventListener("click", closeViewModal);
-  document.getElementById("closeViewModalBtn").addEventListener("click", closeViewModal);
-  document.getElementById("closeEditModal").addEventListener("click", closeEditModal);
-  document.getElementById("cancelEditBtn").addEventListener("click", closeEditModal);
-  document.getElementById("closeDeleteModal").addEventListener("click", closeDeleteModal);
-  document.getElementById("cancelDeleteBtn").addEventListener("click", closeDeleteModal);
-  document.getElementById("confirmDeleteBtn").addEventListener("click", deleteTeam);
+  document
+    .getElementById("closeViewModal")
+    .addEventListener("click", closeViewModal);
+  document
+    .getElementById("closeViewModalBtn")
+    .addEventListener("click", closeViewModal);
+  document
+    .getElementById("closeEditModal")
+    .addEventListener("click", closeEditModal);
+  document
+    .getElementById("cancelEditBtn")
+    .addEventListener("click", closeEditModal);
+  document
+    .getElementById("closeDeleteModal")
+    .addEventListener("click", closeDeleteModal);
+  document
+    .getElementById("cancelDeleteBtn")
+    .addEventListener("click", closeDeleteModal);
+  document
+    .getElementById("confirmDeleteBtn")
+    .addEventListener("click", deleteTeam);
 
   const saveEditBtn = document.getElementById("saveEditBtn");
   if (saveEditBtn) {
@@ -102,7 +120,8 @@ function createParticles() {
       "rgba(255, 107, 107, 0.4)",
       "rgba(255, 255, 255, 0.4)",
     ];
-    particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    particle.style.backgroundColor =
+      colors[Math.floor(Math.random() * colors.length)];
     const duration = Math.random() * 30 + 20;
     const delay = Math.random() * 20;
     particle.style.animation = `floatParticle ${duration}s linear ${delay}s infinite`;
@@ -158,9 +177,12 @@ async function filterTeams() {
   const qs = params.toString();
 
   try {
-    const res = await fetch(`${API_BASE}/api/admin/teams${qs ? "?" + qs : ""}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const res = await fetch(
+      `${API_BASE}/api/admin/teams${qs ? "?" + qs : ""}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    );
     if (res.status === 401) {
       localStorage.removeItem("hackathonToken");
       localStorage.removeItem("hackathonRole");
@@ -192,11 +214,11 @@ function renderTeamsTable(teams = teamsData) {
   let tableHTML = "";
   teams.forEach((team) => {
     const formattedDate = formatDate(team.registrationDate);
-    const participantType = team.participantType === "binusian" ? "Binusian" : "Non-Binusian";
+    const participantType =
+      team.participantType === "binusian" ? "Binusian" : "Non-Binusian";
     tableHTML += `
       <tr data-team-id="${team.id}">
         <td class="team-name-cell">${escapeHtml(team.teamName)}</td>
-        <td class="team-size-cell">${team.teamSize || 1} members</td>
         <td>${participantType}</td>
         <td class="team-date-cell">${formattedDate}</td>
         <td class="actions-cell">
@@ -221,20 +243,31 @@ function escapeHtml(s) {
 
 function updateStats() {
   const totalTeams = teamsData.length;
-  const binusianTeams = teamsData.filter((t) => t.participantType === "binusian").length;
+  const binusianTeams = teamsData.filter(
+    (t) => t.participantType === "binusian",
+  ).length;
   const nonBinusianTeams = totalTeams - binusianTeams;
-  const totalParticipants = teamsData.reduce((sum, t) => sum + (t.teamSize || 1), 0);
+  const totalParticipants = teamsData.reduce(
+    (sum, t) => sum + (t.teamSize || 1),
+    0,
+  );
 
   const el = (id) => document.getElementById(id);
   if (el("totalTeams")) el("totalTeams").textContent = totalTeams;
   if (el("binusianTeams")) el("binusianTeams").textContent = binusianTeams;
-  if (el("nonBinusianTeams")) el("nonBinusianTeams").textContent = nonBinusianTeams;
-  if (el("totalParticipants")) el("totalParticipants").textContent = totalParticipants;
+  if (el("nonBinusianTeams"))
+    el("nonBinusianTeams").textContent = nonBinusianTeams;
+  if (el("totalParticipants"))
+    el("totalParticipants").textContent = totalParticipants;
 }
 
 function formatDate(dateString) {
   if (!dateString) return "";
-  return new Date(dateString).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+  return new Date(dateString).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 }
 
 function viewTeam(teamId) {
@@ -246,7 +279,6 @@ function viewTeam(teamId) {
 
   let detailsHTML = `
     <div class="detail-item"><div class="detail-label">Team Name</div><div class="detail-value">${escapeHtml(team.teamName)}</div></div>
-    <div class="detail-item"><div class="detail-label">Team Size</div><div class="detail-value">${team.teamSize || 1} members</div></div>
     <div class="detail-item"><div class="detail-label">Participant Type</div><div class="detail-value">${team.participantType === "binusian" ? "Binusian" : "Non-Binusian"}</div></div>
     <div class="detail-item"><div class="detail-label">Registration Date</div><div class="detail-value">${formatDate(team.registrationDate)}</div></div>
   `;
@@ -343,11 +375,14 @@ async function saveTeamEdit() {
 
   const body = {
     group_name: document.getElementById("editTeamName").value.trim(),
-    is_binusian: document.getElementById("editParticipantType").value === "binusian",
+    is_binusian:
+      document.getElementById("editParticipantType").value === "binusian",
     leader: {
       fullName: document.getElementById("editLeaderName").value.trim(),
       email: document.getElementById("editLeaderEmail").value.trim(),
-      whatsappNumber: document.getElementById("editLeaderWhatsapp").value.trim(),
+      whatsappNumber: document
+        .getElementById("editLeaderWhatsapp")
+        .value.trim(),
       lineId: document.getElementById("editLeaderLineId").value.trim(),
       githubId: document.getElementById("editLeaderGithubId").value.trim(),
       birthPlace: document.getElementById("editLeaderBirthPlace").value.trim(),
@@ -356,14 +391,17 @@ async function saveTeamEdit() {
   };
 
   try {
-    const res = await fetch(`${API_BASE}/api/admin/teams/${window.currentEditTeamId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+    const res = await fetch(
+      `${API_BASE}/api/admin/teams/${window.currentEditTeamId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(body),
       },
-      body: JSON.stringify(body),
-    });
+    );
     const data = await res.json().catch(() => ({}));
     if (!res.ok) {
       showToast(data.message || "Update failed.", "error");
@@ -399,10 +437,13 @@ async function deleteTeam() {
   if (!token) return;
 
   try {
-    const res = await fetch(`${API_BASE}/api/admin/teams/${window.currentDeleteTeamId}`, {
-      method: "DELETE",
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const res = await fetch(
+      `${API_BASE}/api/admin/teams/${window.currentDeleteTeamId}`,
+      {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    );
     const data = await res.json().catch(() => ({}));
     if (!res.ok) {
       showToast(data.message || "Delete failed.", "error");
