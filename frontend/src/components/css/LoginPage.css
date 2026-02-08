@@ -455,7 +455,9 @@ input {
   font-size: 1rem;
   transition: all 0.3s;
 }
-
+input::placeholder {
+  text-indent: 30px;
+}
 input:focus {
   outline: none;
   border-color: var(--primary);
