@@ -2,17 +2,24 @@ import "../components/css/UserDashboard.css";
 import { useEffect } from "react";
 import "../legacy/UserDash.js";
 
+
 declare global {
   interface Window {
     viewCV: () => void;
     downloadIDCard: () => void;
     openLogoutModal: () => void;
     closeLogoutModal: () => void;
+    initDashboard: () => void;
   }
 }
 
 function UserDashboard() {
   useEffect(() => {
+    // Initialize dashboard data loading
+    if (window.initDashboard) {
+      window.initDashboard();
+    }
+
     const viewCvBtn = document.getElementById("viewCv");
     if (viewCvBtn && window.viewCV) {
       viewCvBtn.addEventListener("click", window.viewCV);
@@ -114,7 +121,7 @@ function UserDashboard() {
         <div className="container">
           <section className="welcome-section">
             <h1>Welcome to Your Dashboard</h1>
-            <div className="team-name" id="teamName">Tech Innovators</div>
+            <div className="team-name" id="teamName"></div>
             <p>Manage your team information, view important documents, and stay updated with hackathon timeline.</p>
             <div className="status-badge">
               <i className="fas fa-check-circle"></i>
@@ -138,15 +145,15 @@ function UserDashboard() {
                   <div className="info-group-content">
                     <div className="info-item">
                       <div className="info-label">Full Name</div>
-                      <div className="info-value" id="leaderFullName">Tony Stark</div>
+                      <div className="info-value" id="leaderFullName"></div>
                     </div>
                     <div className="info-item">
                       <div className="info-label">Email</div>
-                      <div className="info-value email" id="leaderEmail">tony.stark@techinnovators.com</div>
+                      <div className="info-value email" id="leaderEmail"></div>
                     </div>
                     <div className="info-item">
                       <div className="info-label">Birth Details</div>
-                      <div className="info-value" id="leaderBirthDetails">New York, May 29, 1970</div>
+                      <div className="info-value" id="leaderBirthDetails"></div>
                     </div>
                   </div>
                 </div>
@@ -156,15 +163,15 @@ function UserDashboard() {
                   <div className="info-group-content">
                     <div className="info-item">
                       <div className="info-label">WhatsApp</div>
-                      <div className="info-value" id="leaderWhatsApp">+1 (555) 123-4567</div>
+                      <div className="info-value" id="leaderWhatsApp"></div>
                     </div>
                     <div className="info-item">
                       <div className="info-label">LINE ID</div>
-                      <div className="info-value" id="leaderLineId">@tonystark</div>
+                      <div className="info-value" id="leaderLineId"></div>
                     </div>
                     <div className="info-item">
                       <div className="info-label">GitHub/GitLab</div>
-                      <div className="info-value" id="leaderGithubId">tonystark-dev</div>
+                      <div className="info-value" id="leaderGithubId"></div>
                     </div>
                   </div>
                 </div>
@@ -174,15 +181,15 @@ function UserDashboard() {
                   <div className="info-group-content">
                     <div className="info-item">
                       <div className="info-label">Team Name</div>
-                      <div className="info-value" id="teamNameValue">Tech Innovators</div>
+                      <div className="info-value" id="teamNameValue"></div>
                     </div>
                     <div className="info-item">
                       <div className="info-label">Participant Type</div>
-                      <div className="info-value" id="leaderParticipantType">Non-Binusian</div>
+                      <div className="info-value" id="leaderParticipantType"></div>
                     </div>
                     <div className="info-item">
                       <div className="info-label">Registration Date</div>
-                      <div className="info-value" id="registrationDate">October 15, 2025</div>
+                      <div className="info-value" id="registrationDate"></div>
                     </div>
                   </div>
                 </div>
