@@ -257,10 +257,10 @@ function AdminPanel() {
             <form id="editTeamForm" className="edit-form"></form>
           </div>
           <div className="modal-footer">
-            <button className="btn btn-cancel" id="cancelEditBtn">
+            <button className="btn btn-cancel" id="cancelEditBtn" type="button">
               Cancel
             </button>
-            <button className="btn btn-save" id="saveEditBtn">
+            <button className="btn btn-save" id="saveEditBtn" type="button">
               Save Changes
             </button>
           </div>
@@ -302,10 +302,10 @@ function AdminPanel() {
             </p>
           </div>
           <div className="modal-footer">
-            <button className="btn btn-cancel" id="cancelDeleteBtn">
+            <button className="btn btn-cancel" id="cancelDeleteBtn" type="button">
               Cancel
             </button>
-            <button className="btn btn-delete" id="confirmDeleteBtn">
+            <button className="btn btn-delete" id="confirmDeleteBtn" type="button">
               Delete Team
             </button>
           </div>

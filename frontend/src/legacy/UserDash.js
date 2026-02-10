@@ -1,6 +1,5 @@
 // ===== CONFIG =====
 console.log("User Dashboard loaded");
-
 const API_BASE = "http://localhost:8000";
 
 // ===== AUTH HELPERS =====
@@ -22,13 +21,16 @@ function forceLogout() {
 // ===== INIT =====
 function initDashboard() {
   if (!getToken() || !isParticipant()) {
-    forceLogout();
+    window.location.href = "/loginpage";
     return;
   }
 
+  createParticles();
+  setupCardHoverEffects();
   loadUserData();
   bindEvents();
 }
+
 
 // ===== LOAD USER DATA =====
 async function loadUserData() {
@@ -107,7 +109,7 @@ async function openFile(type, download) {
     if (download) {
       const a = document.createElement("a");
       a.href = url;
-      a.download = type === "cv" ? "CV.pdf" : "ID-Card.pdf";
+      a.download = type === "cv" ? "CV.pdf" : "ID-Card.png";
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -145,6 +147,62 @@ function closeLogoutModal() {
   byId("logoutModal")?.classList.remove("active");
 }
 
+function createParticles() {
+  const container = document.getElementById("particles-container");
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  for (let i = 0; i < 30; i++) {
+    const particle = document.createElement("div");
+    particle.classList.add("particle");
+
+    const size = Math.random() * 10 + 5;
+    particle.style.width = `${size}px`;
+    particle.style.height = `${size}px`;
+    particle.style.left = `${Math.random() * 100}%`;
+
+    const duration = Math.random() * 20 + 10;
+    const delay = Math.random() * 20;
+    particle.style.animationDuration = `${duration}s`;
+    particle.style.animationDelay = `${delay}s`;
+
+    const colors = [
+      "rgba(108, 99, 255, 0.3)",
+      "rgba(54, 209, 220, 0.3)",
+      "rgba(255, 107, 107, 0.3)",
+      "rgba(255, 255, 255, 0.3)",
+    ];
+
+    particle.style.background =
+      colors[Math.floor(Math.random() * colors.length)];
+
+    container.appendChild(particle);
+  }
+}
+
+function setupCardHoverEffects() {
+  const cards = document.querySelectorAll(".glass");
+
+  cards.forEach((card) => {
+    card.addEventListener("mouseenter", () => {
+      cards.forEach((c) => {
+        if (c !== card) {
+          c.style.transform = "scale(0.98)";
+          c.style.opacity = "0.9";
+        }
+      });
+    });
+
+    card.addEventListener("mouseleave", () => {
+      cards.forEach((c) => {
+        c.style.transform = "";
+        c.style.opacity = "";
+      });
+    });
+  });
+}
+
 // ===== HELPERS =====
 function byId(id) {
   return document.getElementById(id);
@@ -169,7 +227,6 @@ function showToast(msg, type = "success") {
   if (!toast) return;
 
   toast.className = `toast ${type}`;
-
   const messageEl = toast.querySelector(".toast-message");
   if (messageEl) messageEl.textContent = msg;
 
@@ -177,12 +234,17 @@ function showToast(msg, type = "success") {
   setTimeout(() => toast.classList.remove("show"), 3000);
 }
 
-// ===== EXPORT =====
-export function initUserDashboard() {
-  initDashboard();
-}
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeLogoutModal();
+});
 
-// ===== GLOBAL (FOR INLINE BUTTONS) =====
+window.addEventListener("load", () => {
+  document.body.style.opacity = "0";
+  document.body.style.transition = "opacity 0.5s";
+  setTimeout(() => (document.body.style.opacity = "1"), 100);
+});
+
+// ===== GLOBAL =====
 window.viewCV = viewCV;
 window.downloadIDCard = downloadIDCard;
 window.openLogoutModal = openLogoutModal;
